@@ -100,34 +100,53 @@ TASK 5 :- How to clear a log file of a running process?
 Ans - 
 1. Empty file content by redirecting to null
 A easiest way to empty or blank a file content using shell redirect null to the file
+```
 # du -sh access.log
 # > access.log
+```
 
 2. Empty file using ‘true’ command redirection
 Here we will use a symbol : is a shell built-in command that is essence equilent to the ‘true’ command and it can be used as a no operation.
 Another method is to redirect the output of : or true built-in command.
+```
 # :> access.log
+```
+
 or
+```
 # true > assis.log
+```
 
 3. Empty file using cat/cp/dd utilities with /dev/null
 In Linux, the null device is basiclly utilized for discarding of unwanted output streams of a process or else as a suitable empty files for input streams.
 This is normally done by redirection mechainism.
+```
 # cat /dev/null > access.log
 # cp /dev/null > access.log
 # dd if=/dev/null of=access.log
+```
 
 4 Empty the file using echo command
+```
 # echo “ “  > access.log
+```
+
 or
+```
 # echo > acces.log
+```
+
 or
+```
 # echo -n “ ” > acces.log
+```
 
 5 Empty file using truncate command
 The truncate command helps to shrink or extend the size of a file to a defined size.
 You can employ it with the -s option that specifies the file size. To empty a file content, use a size of 0. 
+```
 # truncate -s 0 access.log
+```
 
 
 TASK 5 :- What will happen if you delete a log file of running process?
@@ -144,7 +163,10 @@ Ans – TOP command
 TASK 7 :- What is DNAT and SNAT, Explain both with an example?
 Ans - Destination NAT
 Destination NAT means, we translate the destination address of a packet to make it go somewhere else instead of where it was originally addressed. For our scenario, it is:
+```
 # iptables -t nat -A PREROUTING -d 10.10.10.99/32 -j DNAT –to-destination 192.168.1.101
+```
+
 Now all IP packets coming to our machine’s (A) IP address of 10.10.10.99 will be rewritten and sent to 192.168.1.101 instead. This translation is transparent to the machine the connection is originating from and to machine B.
 So if you connect from, say, 172.16.1.10 to 10.10.10.99, the packet will be rewritten upon reaching machine A and be sent to machine B. Machine B will see it coming from 172.16.1.10, it will have no idea that the connection was redirected by 10.10.10.99. This is important because when machine B replies, the FROM address in it’s reply will be it’s own IP address of 192.168.1.101.
 This will cause a protocol error on your machine because your machine (172.16.1.10) will be expecting a reply from 10.10.10.99 and instead will receive a reply from 192.168.1.101.
@@ -165,7 +187,9 @@ If you’d like me to expand upon any of this further, please leave a comment as
 TASK 8 :- How do you check those process that are waiting for the resources?
 Ans- A. vmstat command reports information about processes, memory, paging, block IO, traps, and cpu activity. However, a real advantage of vmstat command output – is to the point and (concise) easy to read/understand. The output of vmstat command use to help identify system bottlenecks. Please note that Linux vmstat does not count itself as a running process.
 
+```
 # vmstat -S M
+```
 
 -S M: vmstat lets you choose units (k, K, m, M) default is K (1024 bytes) in the default mode. I am using M since this system has over 4 GB memory. Without -M option it will use K as unit
 
@@ -191,28 +215,46 @@ The process scheduling priority range is from -20 to 19. We call this as nice va
 
 1. Display Nice Value of a Process
 The current priority of a process can be displayed using ps command. 
+```
 # perl test.pl
+```
+
 2. Launch a Program with Less Priority
 Instead of launching the program with the default priority, you can use nice command to launch the process with a specific priority.
+```
 # nice -10 perl test.pl
+```
+
 3. Launch a Program with High Priority
 You can also launch a program with a higher priority. Negative nice value will increase the priority a the process.
+```
 # nice --10 perl test.pl
+```
+
 4. Change the Priority with option -n
 The process priority can be adjusted with the help of -n option.
+```
 # nice -n -5 perl test.pl
+```
+
 5. Change the Priority of a Running Process
 The priority of an already running process can be changed using renice command.
+```
 # ps -fl -C "perl test.pl"
+```
+
 6. Change the Priority of All Processes that Belongs to a Group
 Using -g option you can modify the priority of all processes that belongs to a group.
+```
 # renice -n 5 -g geekstuff
-
+```
 
 
 7. Change the Priority of All Processes Owned by User
 Renice allows to alter the priority of all the processes owned by a specific users
+```
 # renice -n 5 -u bala
+```
 
 TASK 12 :- What are stdin, stdout, and stderr and how do we use them?
 Ans – Linux is built being able to run instructions from the command line using switches to create the output. The question of course is how do we make use of that?
@@ -258,7 +300,10 @@ Ans – TOP command
 TASK 16 :- What is DNAT and SNAT, Explain both with an example?
 Ans - Destination NAT
 Destination NAT means, we translate the destination address of a packet to make it go somewhere else instead of where it was originally addressed. For our scenario, it is:
+```
 # iptables -t nat -A PREROUTING -d 10.10.10.99/32 -j DNAT –to-destination 192.168.1.101
+```
+
 Now all IP packets coming to our machine’s (A) IP address of 10.10.10.99 will be rewritten and sent to 192.168.1.101 instead. This translation is transparent to the machine the connection is originating from and to machine B.
 So if you connect from, say, 172.16.1.10 to 10.10.10.99, the packet will be rewritten upon reaching machine A and be sent to machine B. Machine B will see it coming from 172.16.1.10, it will have no idea that the connection was redirected by 10.10.10.99. This is important because when machine B replies, the FROM address in it’s reply will be it’s own IP address of 192.168.1.101.
 This will cause a protocol error on your machine because your machine (172.16.1.10) will be expecting a reply from 10.10.10.99 and instead will receive a reply from 192.168.1.101.

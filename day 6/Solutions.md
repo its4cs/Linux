@@ -33,7 +33,10 @@ A-
 => "bg" to run it in the background. 
 =>"fg" moves it to the foreground.
 =>you can also start a program as a background job with an "&" on the command line.
+```
 # myprogram &
+```
+
 => 1. Ctrl-z
 2. jobs
 or alternate method which lists the PID (note the PID is not the jobnum, the job number is shell specific to the current bash session): jobs -l

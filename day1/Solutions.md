@@ -1,39 +1,54 @@
 ASSIGNMENT 1
 
 TASK 1 :- Install and configure Apache2.
- STEPS  :- # apt-get insatll apache2 -y (as a root user)
+ STEPS  :- 
+```
+                           # apt-get insatll apache2 -y (as a root user)
                            # systemctl status apache2.service (should be active)
                            # cd /var/www/html
                            # vim index.html (hi! I am devops ninja)
+```
 
 TASK 2 :- Install and configure nginx – configure it to run a                  proxy to apache.
-STEPS   :- # apt-get install nginx (It will not run either stop apache or change the port)
+STEPS   :- 
+```
+                           # apt-get install nginx (It will not run either stop apache or change the port)
                            # cd /etc/apache2
                            # vim ports.conf (changed the port to 81)
                            # vim /etc/nginx/sites-available/defaults
                            # mv defaults proxytest (changed the file defaults to proxytest)
                            # vim proxytest 
+```
+
 ( server {
 listen 80;
 server_name proxy_test.com;
 location / {
 proxy_pass http://192.168.33.10:81;}} )
+```
                               # ln -s /etc/nginx/sites-available/proxytest proxytest
                               # vim /etc/host ( add – 192.168.33.10 proxytest.com )
+```
 Now, nginx is working as a proxy server of apache2.
 
 TASK 3 :- Install & Configure ntp with singapore timezone.
-Steps    :-  # apt-get install ntp
+Steps    :-  
+```
+                          # apt-get install ntp
                           # vim /etc/ntp.conf ( edit the singapore pool.ntp.org configuration)
                           # systemctl restart ntp
                           # apt-get install ntpdate -y
                           # ntpdate 
+```
 
 TASK 4 :- Install tomcat version 8.
-Steps    :-  # wget http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.31/bin/apche-tomcat-8.5.31.tar.gz
+Steps    :-  
+```
+                          # wget http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.31/bin/apche-tomcat-8.5.31.tar.gz
                           # cd /opt/tomcat
                           # tar xzvf apache-tomcat-8.5.31.tar.gz -C /opt/tomcat
-                          configured tomcat – Install Java with home environment
+```                          
+                                                             configured tomcat – Install Java with home environment
                                                              Installed apache tomcat version 8
                                                              Created tomcat group and user
                                                              Test apache tomcat on 8080 by config. ~/bashrc
@@ -45,7 +60,9 @@ Steps    :-  # wget http://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.31/bin/ap
 
 
 TASK 5 :- Install java8.
-Steps    :-  # add-apt-repository ppa:webupd8team/java
+Steps    :-               
+```
+                          # add-apt-repository ppa:webupd8team/java
                           # apt-get update
                           # apt-get install oracle-java8-installer  -y
                           # update-alternatives  --config java
@@ -53,7 +70,7 @@ Steps    :-  # add-apt-repository ppa:webupd8team/java
                              # vim ~./bashrc ( export java home and path)
                              # source ~/.bashrc
                              # echo $JAVA_HOME
-
+```
 
 TASK 6 :- Install build-essential.
 Steps    :-  # apt-get install build-essential
@@ -66,10 +83,13 @@ Why we need build-essentials?
 
 
 TASK 7 :- Install logrotate & rotate tomcats catalina.out logs.
-Steps    :- # apt-get install logrotate -y
+Steps    :- 
+```
+                        # apt-get install logrotate -y
                         # cd /etc/logrotate.d
                         # touch tomcat
                         # vim tomcat 
+```
 ( /opt/tomcat/apache-tomcat-8.5.31/logs/catalina.out
 {
 rotate 5
@@ -78,13 +98,17 @@ size 500K
 compress
 delay compress
 }
-                        # logrotate -f /etc/logrotate.conf
-
+```   
+                     # logrotate -f /etc/logrotate.conf
+```
 
 
 
 TASK 8 :- Install git.
-Steps    :- # apt-get install git
+Steps    :- 
+```
+# apt-get install git
+```
 Theory  :-
 What is git?
 1. By far, the most widely used modern version control system in the world today is Git.

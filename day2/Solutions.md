@@ -1,9 +1,12 @@
 ASSIGNMENT 2
 
 TASK 1 :- Make 5 partitions in your pendrive.
- STEPS  :- # sudo mount ( check the mounted device)
+ STEPS  :-
+```
+                           # sudo mount ( check the mounted device)
                            # sudo fdisk -l (to identify my device)
                            # sudo fdisk /dev/sdb (to make partitions)
+```
                            First partition –     n -> p -> 1 -> enter -> +10M (sdb1)
                            Second partition -  n -> p -> 2 -> enter -> +10M (sdb2)
                            Third partition -    n -> p -> 3 -> enter -> +10M (sdb3)
@@ -11,8 +14,9 @@ TASK 1 :- Make 5 partitions in your pendrive.
                            Fourth partition -  n -> enter -> +50M                (sdb5)
                            Fifth partition -      n -> enter -> +50M                (sdb6)
                                                             w -> (saves the partition on disk) 
+```                           
                            # partprobe (save to the kernel)
-
+```
 
 
 
@@ -26,7 +30,9 @@ TASK 1 :- Make 5 partitions in your pendrive.
 
 
 TASK 2 :- Mount those partition.
-STEPS   :- # cd /
+STEPS   :- 
+```
+                           # cd /
                            # sudo mkdir mnt1 mnt2 mnt3 mnt4 mnt5 (made the mount points)
                            # sudo mkfs.ext4 /dev/sdb1 (giving file system to 1st partition)
                            # sudo mkfs.ext4 /dev/sdb2 (giving file system to 2ndpartition)
@@ -38,10 +44,12 @@ STEPS   :- # cd /
                            # sudo mount /dev/sdb3 /mnt3
                            # sudo mount /dev/sdb5 /mnt4
                            # sudo mount /dev/sdb6 /mnt5
-
+```
 
 TASK 3 :- Validate the same by making files in the above and unmount the same and check if you still see the contents.
-Steps    :-  # cd /mnt1
+Steps    :-               
+```
+                          # cd /mnt1
                           # sudo touch test1
                           # cd /mnt2
                           # sudo touch test2
@@ -56,10 +64,13 @@ Steps    :-  # cd /mnt1
                           # sudo umount /dev/sdb3
                           # sudo umount /dev/sdb5
                           # sudo umount /dev/sdb6
+```
 
 TASK 4 :- Delete all the partitions and make a single partition.
 Steps    :-  First delete all partitions properly.
+```
                  # sudo fdisk /dev/ 
+```   
                           First partition ->  d -> 1
                           Second partition ->  d -> 2
                           Third partition ->  d -> 3
@@ -67,24 +78,29 @@ Steps    :-  First delete all partitions properly.
                           Fourth partition ->  d -> 5
                           Fifth partition ->  d -> 6
                           Save changes -> w
-                          # sudo parted -a opt /dev/sdb mkpart primary ext4 0% 100%
-                             (Created a single partition with whole disk space)
+```      
+                    # sudo parted -a opt /dev/sdb mkpart primary ext4 0% 100%
+```   
+                          (Created a single partition with whole disk space)
                           
 
 
 TASK 5 :- Make it a lvm partition -> physical vol -> vol_grp - > logical_vol1.
-Steps    :-  # sudo lvmdiskscan (scans free disk for lvm partition)
+Steps    :-  
+```
+                          # sudo lvmdiskscan (scans free disk for lvm partition)
                           # sudo pvcreate /dev/sdb (physical vol created)
                           # sudo pvscan (scans and shows the physical_vol)
-
+```
 output :-
   PV /dev/sdb                                               lvm2 [7.23 GiB]
   Total: 1 [7.23 GiB] / in use: 0 [0   ] / in no VG: 1 [7.23 GiB]
                           
 
-
+```
                           # sudo vgcreate vol_grp /dev/sdb 
                              # sudo vgdisplay
+```
 
 output:-
 --- Volume group ---
@@ -109,10 +125,13 @@ output:-
   VG UUID               KfqNo2-vlQ6-6bQ4-0UpP-72Pv-LjaY-UooGX2
 
 
-
+```
                              # sudo lvcreate -l 256 -n logical_vol1 vol_grp 
-    (logical_vol1 created by giving the value in form of extent 256 extent=1gb)
+```   
+ (logical_vol1 created by giving the value in form of extent 256 extent=1gb)
+```   
                              # sudo lvdisplay
+```
 output:-
 --- Logical volume ---
   LV Path                /dev/vol_grp/logical_vol1
@@ -138,7 +157,9 @@ output:-
 TASK 6 :- Extend the size to 1.5G and then reduce it to 500M.
 Steps    :-  # sudo lvextend -l384 /dev/vol_grp/logical_vol1
                             (we did it by giving 384 extent but we could also given +128 extent)
-                          # sudo lvdisplay
+```   
+                       # sudo lvdisplay
+```
 output:-
 --- Logical volume ---
   LV Path                /dev/vol_grp/logical_vol1
@@ -156,9 +177,10 @@ output:-
   Read ahead sectors     auto
   - currently set to     256
   Block device           253:0
+```
                          # sudo lvreduce -L 500M /dev/vol_grp/logical_vol1
                          # sudo lvdisplay
-
+```
 
 
 output:-
@@ -179,8 +201,9 @@ output:-
   - currently set to     256
   Block device           253:0
 
-                          # sudo resize2fs
-
+```   
+                       # sudo resize2fs
+```
 
 
 TASK 7 :- LVM.
